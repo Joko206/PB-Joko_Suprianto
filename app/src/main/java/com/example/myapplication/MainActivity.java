@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     TextView forgotPass, signUp;
     FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
         emailUser = findViewById(R.id.email);
         passwordUser = findViewById(R.id.password);
         checkBoxes = findViewById(R.id.checkboxes);
@@ -43,11 +45,22 @@ public class MainActivity extends AppCompatActivity {
         forgotPass = findViewById(R.id.forgotPassword);
         signUp = findViewById(R.id.signUp);
 
-        btLogin.setOnClickListener(view -> {
-            String email, password;
-            email = String.valueOf(emailUser.getText());
-            password = String.valueOf(passwordUser.getText());
+        btLogin.setOnClickListener(loginView -> {
+            String email = String.valueOf(emailUser.getText()).trim();
+            String password = String.valueOf(passwordUser.getText()).trim();
 
+            // Basic validation
+            if (email.isEmpty()) {
+                emailUser.setError("Email is required");
+                return;
+            }
+
+            if (password.isEmpty()) {
+                passwordUser.setError("Password is required");
+                return;
+            }
+
+            // Firebase authentication
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -56,9 +69,23 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(MainActivity.this, "Login Gagal", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Login Gagal: " +
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         });
+
+        // Handle sign up text click - using a different parameter name
+        signUp.setOnClickListener(signUpView -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+            startActivity(intent);
+        });
+
+        // You can also add forgot password functionality
+        forgotPass.setOnClickListener(forgotView -> {
+            // Implement forgot password logic here
+        });
+
+
     }
 }

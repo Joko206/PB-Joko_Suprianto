@@ -1,10 +1,33 @@
 package com.example.myapplication.Models;
 
 public class UserDetails {
+    private String userId;
+    private String username;
+    private String email;
+    private String password;
+    private String nim;
 
-    private String userId, username, userEmail, userPassword, userNIM;
+    // No-argument constructor (required for Firebase)
+    public UserDetails() {
+        // This constructor is necessary for Firebase to deserialize the object
+    }
 
-    public UserDetails(){
+    // Constructor with arguments to initialize fields
+    public UserDetails(String userId, String username, String email, String password, String nim) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.nim = nim;
+    }
+
+    // Getter and Setter methods
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -15,45 +38,37 @@ public class UserDetails {
         this.username = username;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getNim() {
+        return nim;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setNim(String nim) {
+        this.nim = nim;
     }
 
-    public String getUserNIM() {
-        return userNIM;
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", nim='" + nim + '\'' +
+                '}';
     }
-
-    public void setUserNIM(String userNIM) {
-        this.userNIM = userNIM;
-    }
-
-    public UserDetails(String userId, String username, String userEmail, String userPassword, String userNIM) {
-        this.userId = userId;
-        this.username = username;
-        this.userEmail = userEmail;
-        this.userPassword = userPassword;
-        this.userNIM = userNIM;
-    }
-
-
 }

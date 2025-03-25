@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1013842289814",
-    "project_id": "pemrograman-bergerak-ce1c3",
-    "storage_bucket": "pemrograman-bergerak-ce1c3.firebasestorage.app"
+    "project_number": "615470126766",
+    "project_id": "pb-jokosuprianto",
+    "storage_bucket": "pb-jokosuprianto.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1013842289814:android:294e37fa8af412ba918eb7",
+        "mobilesdk_app_id": "1:615470126766:android:7ed665afb70c61b16d7f3f",
         "android_client_info": {
           "package_name": "com.example.myapplication"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCHER6Ih15ldIxgIVT9aBlgNbpTGr_leXE"
+          "current_key": "AIzaSyBO0eMyMg5VpXXEKzuV2bj0sp9hbFxVxi4"
         }
       ],
       "services": {

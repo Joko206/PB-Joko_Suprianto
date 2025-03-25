@@ -74,34 +74,40 @@ public class MainActivity2 extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String username, String email,String password, String NIM) {
+    private void registerUser(String username, String email, String password, String NIM) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity2.this, task -> {
             if (task.isSuccessful()) {
                 FirebaseUser fUser = auth.getCurrentUser();
-                String uid = fUser.getUid();
+                String uid = fUser.getUid();  // Get the UID of the signed-up user
 
+                // Create a new UserDetails object with the data
                 UserDetails userDetails = new UserDetails(uid, username, email, password, NIM);
 
+                // Reference to the 'Users' node in Firebase Realtime Database
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-                reference.child(fUser.getUid()).setValue(userDetails).addOnCompleteListener(task1 -> {
-                    if (task1.isSuccessful()){
+
+                // Save the user data under the UID
+                reference.child(uid).setValue(userDetails).addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
                         fUser.sendEmailVerification();
                         Toast.makeText(MainActivity2.this, "Account created", Toast.LENGTH_LONG).show();
 
-                        //Pindah Page
+                        // Redirect to HomeActivity after successful registration
                         Intent intent = new Intent(MainActivity2.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(MainActivity2.this, "Account registerd failed", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Register: Error");
+                        Toast.makeText(MainActivity2.this, "Account registration failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+            } else {
+                Toast.makeText(MainActivity2.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }
